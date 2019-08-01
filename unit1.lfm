@@ -1,0 +1,574 @@
+object frmMain: TfrmMain
+  Left = 297
+  Height = 697
+  Top = 118
+  Width = 1097
+  Caption = 'CGNAT (netmap)'
+  ClientHeight = 697
+  ClientWidth = 1097
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '2.0.2.0'
+  object Label1: TLabel
+    Left = 8
+    Height = 15
+    Top = 56
+    Width = 95
+    Caption = 'Endereço Privado:'
+    ParentColor = False
+  end
+  object Ed_Private: TEdit
+    Left = 112
+    Height = 23
+    Top = 52
+    Width = 96
+    TabOrder = 1
+    Text = '0.0.0.0'
+  end
+  object Label2: TLabel
+    Left = 8
+    Height = 15
+    Top = 76
+    Width = 95
+    Caption = 'Endereço Público:'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 8
+    Height = 15
+    Top = 100
+    Width = 40
+    Caption = 'Prefixo:'
+    ParentColor = False
+  end
+  object Ed_Prefix: TComboBox
+    Left = 112
+    Height = 23
+    Top = 100
+    Width = 48
+    ItemHeight = 15
+    ItemIndex = 5
+    Items.Strings = (
+      '/22'
+      '/23'
+      '/24'
+      '/25'
+      '/26'
+      '/27'
+      '/28'
+      '/29'
+      '/30'
+    )
+    Style = csDropDownList
+    TabOrder = 3
+    Text = '/27'
+  end
+  object Ed_Division: TComboBox
+    Left = 112
+    Height = 23
+    Top = 124
+    Width = 48
+    ItemHeight = 15
+    ItemIndex = 30
+    Items.Strings = (
+      '2'
+      '3'
+      '4'
+      '5'
+      '6'
+      '7'
+      '8'
+      '9'
+      '10'
+      '11'
+      '12'
+      '13'
+      '14'
+      '15'
+      '16'
+      '17'
+      '18'
+      '19'
+      '20'
+      '21'
+      '22'
+      '23'
+      '24'
+      '25'
+      '26'
+      '27'
+      '28'
+      '29'
+      '30'
+      '31'
+      '32'
+      '33'
+      '34'
+      '35'
+      '36'
+      '37'
+      '38'
+      '39'
+      '40'
+      '41'
+      '42'
+      '43'
+      '44'
+      '45'
+      '46'
+      '47'
+      '48'
+      '49'
+      '50'
+      '51'
+      '52'
+      '53'
+      '54'
+      '55'
+      '56'
+      '57'
+      '58'
+      '59'
+      '60'
+      '61'
+      '62'
+      '63'
+      '64'
+      '65'
+      '66'
+      '67'
+      '68'
+      '69'
+      '70'
+      '71'
+      '72'
+      '73'
+      '74'
+      '75'
+      '76'
+      '77'
+      '78'
+      '79'
+      '80'
+      '81'
+      '82'
+      '83'
+      '84'
+      '85'
+      '86'
+      '87'
+      '88'
+      '89'
+      '90'
+      '91'
+      '92'
+      '93'
+      '94'
+      '95'
+      '96'
+      '97'
+      '98'
+      '99'
+      '100'
+      '101'
+      '102'
+      '102'
+      '103'
+      '104'
+      '105'
+      '106'
+      '107'
+      '108'
+      '109'
+      '110'
+      '111'
+      '112'
+      '113'
+      '114'
+      '115'
+      '116'
+      '117'
+      '118'
+      '119'
+      '120'
+      '121'
+      '122'
+      '123'
+      '124'
+      '125'
+      '126'
+      '127'
+      '128'
+    )
+    Style = csDropDownList
+    TabOrder = 4
+    Text = '32'
+  end
+  object Label4: TLabel
+    Left = 8
+    Height = 15
+    Top = 124
+    Width = 41
+    Caption = 'Divisão:'
+    ParentColor = False
+  end
+  object Lv_Items: TListView
+    Left = 280
+    Height = 144
+    Top = 8
+    Width = 360
+    Columns = <    
+      item
+        Caption = 'Privado'
+        Width = 100
+      end    
+      item
+        Caption = 'Público'
+        Width = 100
+      end    
+      item
+        Caption = 'Pref'
+      end    
+      item
+        Alignment = taRightJustify
+        Caption = 'Div'
+        Width = 35
+      end    
+      item
+        Alignment = taRightJustify
+        Caption = 'Portas'
+      end>
+    HideSelection = False
+    ReadOnly = True
+    RowSelect = True
+    TabOrder = 8
+    ViewStyle = vsReport
+    OnClick = Lv_ItemsClick
+  end
+  object Bt_Add: TButton
+    Left = 216
+    Height = 25
+    Top = 64
+    Width = 60
+    Caption = 'Adicionar'
+    OnClick = Bt_AddClick
+    TabOrder = 5
+  end
+  object Bt_Change: TButton
+    Left = 216
+    Height = 25
+    Top = 96
+    Width = 59
+    Caption = 'Alterar'
+    Enabled = False
+    OnClick = Bt_ChangeClick
+    TabOrder = 6
+  end
+  object Bt_Remove: TButton
+    Left = 216
+    Height = 25
+    Top = 128
+    Width = 59
+    Caption = 'Remover'
+    Enabled = False
+    OnClick = Bt_RemoveClick
+    TabOrder = 7
+  end
+  object Ed_Public: TEdit
+    Left = 112
+    Height = 23
+    Top = 76
+    Width = 96
+    TabOrder = 2
+    Text = '0.0.0.0'
+  end
+  object Lb_Private: TLabel
+    Left = 648
+    Height = 15
+    Top = 8
+    Width = 43
+    Caption = 'Privado:'
+    ParentColor = False
+  end
+  object Lb_Private2: TLabel
+    Left = 664
+    Height = 15
+    Top = 40
+    Width = 33
+    Caption = '0.0.0.0'
+    ParentColor = False
+  end
+  object Lb_Public: TLabel
+    Left = 648
+    Height = 15
+    Top = 56
+    Width = 43
+    Caption = 'Público:'
+    ParentColor = False
+  end
+  object Lb_Public2: TLabel
+    Left = 664
+    Height = 15
+    Top = 88
+    Width = 33
+    Caption = '0.0.0.0'
+    ParentColor = False
+  end
+  object Lb_Public1: TLabel
+    Left = 664
+    Height = 15
+    Top = 72
+    Width = 33
+    Caption = '0.0.0.0'
+    ParentColor = False
+  end
+  object Lb_Private1: TLabel
+    Left = 664
+    Height = 15
+    Top = 24
+    Width = 33
+    Caption = '0.0.0.0'
+    ParentColor = False
+  end
+  object Ed_Script: TMemo
+    Left = 8
+    Height = 528
+    Top = 160
+    Width = 1080
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'Lucida Console'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    HideSelection = False
+    ParentFont = False
+    ReadOnly = True
+    ScrollBars = ssAutoBoth
+    TabOrder = 9
+    WordWrap = False
+  end
+  object Bt_Generate: TButton
+    Left = 648
+    Height = 25
+    Top = 128
+    Width = 59
+    Caption = 'Gerar'
+    OnClick = Bt_GenerateClick
+    TabOrder = 10
+  end
+  object Ed_Profile: TComboBox
+    Left = 56
+    Height = 23
+    Top = 4
+    Width = 168
+    ItemHeight = 15
+    OnChange = Ed_ProfileChange
+    TabOrder = 0
+  end
+  object Label5: TLabel
+    Left = 8
+    Height = 15
+    Top = 8
+    Width = 30
+    Caption = 'Perfil:'
+    ParentColor = False
+  end
+  object Bt_ProfileSave: TSpeedButton
+    Left = 224
+    Height = 22
+    Top = 4
+    Width = 23
+    Glyph.Data = {
+      36040000424D3604000000000000360000002800000010000000100000000100
+      20000000000000040000640000006400000000000000000000004C7047004C70
+      47004C7047004C7047004C7047004C7047004C7047004C7047004C7047004C70
+      47004C7047004C7047004C7047004C7047004C7047004C7047004C7047004C70
+      47004C7047004C7047004C7047004C7047004C7047004C7047004C7047004C70
+      47004C7047004C7047004C7047004C7047004C7047004C7047004C7047004C70
+      4700DB9834FFE6B771FFE7BA78FFE7BA78FFE7BA78FFE7BA78FFE7BA78FFE7BA
+      78FFE7BA78FFE7BA78FFE6B771FFDB9834FF4C7047004C7047004C7047004C70
+      4700DB9834FFFFFFFFFFF7F6F4FFF3F2EFFFF3F2EFFFF3F2EFFFF3F2EFFFF3F2
+      EFFFF3F2EFFFF7F6F4FFFFFFFFFFDB9834FF4C7047004C7047004C7047004C70
+      4700DB9834FFFFFFFFFFF7F6F4FFF3F2EFFFF3F2EFFFF3F2EFFFF3F2EFFFF3F2
+      EFFFF3F2EFFFF7F6F4FFFFFFFFFFDB9834FF4C7047004C7047004C7047004C70
+      4700DB9834FFFFFFFFFFEFEEEAFFE8E5DFFFE8E5DFFFE8E5DFFFE8E5DFFFE8E5
+      DFFFE8E5DFFFEFEEEAFFFFFFFFFFDB9834FF4C7047004C7047004C7047004C70
+      4700DB9834FFFFFFFFFFEFEEEAFFE8E5DFFFE8E5DFFFE8E5DFFFE8E5DFFFE8E5
+      DFFFE8E5DFFFEFEEEAFFFFFFFFFFDB9834FF4C7047004C7047004C7047004C70
+      4700DB9834FFFEFCF9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      FFFFFFFFFFFFFFFFFFFFFEFCF9FFDB9834FF4C7047004C7047004C7047004C70
+      4700DB9834FFDB9834FFDB9834FFDB9834FFDB9834FFDB9834FFDB9834FFDB98
+      34FFDB9834FFDB9834FFDB9834FFDB9834FF4C7047004C7047004C7047004C70
+      4700DB9834FFDB9834FFDB9834FFDB9834FFDB9834FFDB9834FFDB9834FFDB98
+      34FFDB9834FFDB9834FFDB9834FFDB9834FF4C7047004C7047004C7047004C70
+      4700DB9834FFBD832BFFB98029FFC4B69EFFC5BEB0FFC5BEB0FFB5AEA1FF9690
+      82FFC5BEADFFD6A04FFFDB9834FFDB9834FF4C7047004C7047004C7047004C70
+      4700DB9834FFB98029FFB98029FFC5BEB0FFC5BEB0FFC5BEB0FF969082FF3832
+      26FFC5BEB0FFD4A45EFFDB9834FFDB9834FF4C7047004C7047004C7047004C70
+      4700DB9834FFB98029FFB98029FFC5BEB0FFC5BEB0FFC5BEB0FF969082FF3832
+      26FFC5BEB0FFD4A45EFFDB9834FFDB9834C64C7047004C7047004C7047004C70
+      4700DB9834FFB98029FFB98029FFC5BEB0FFC5BEB0FFC5BEB0FFB5AEA1FF9690
+      82FFC5BEB0FFD4A45EFFDB9935CCE1962D114C7047004C7047004C7047004C70
+      47004C7047004C7047004C7047004C7047004C7047004C7047004C7047004C70
+      47004C7047004C7047004C7047004C7047004C7047004C7047004C7047004C70
+      47004C7047004C7047004C7047004C7047004C7047004C7047004C7047004C70
+      47004C7047004C7047004C7047004C7047004C7047004C704700
+    }
+    OnClick = Bt_ProfileSaveClick
+  end
+  object Bt_ProfileRemove: TSpeedButton
+    Left = 248
+    Height = 22
+    Top = 4
+    Width = 23
+    Glyph.Data = {
+      36040000424D3604000000000000360000002800000010000000100000000100
+      20000000000000040000640000006400000000000000000000004C7047004C70
+      47004C7047004C7047004C7047004C7047004C7047004C7047004C7047004C70
+      47004C7047004C7047004C7047004C7047004C7047004C7047004C7047004C70
+      47004C704700FF22C825FF00FF014C7047004C7047004C7047004C7047004C70
+      47004C704700FF00FF01FF22C8254C7047004C7047004C7047004C7047004C70
+      4700FF25BE75FF27BF6FFF26BF87FF0080024C7047004C7047004C7047004C70
+      4700FF008002FF26BF87FF27BF6FFF25BE754C7047004C7047004C704700FF2F
+      AE26FF2CB06EFFACE1A8FF6BC84AFF2BB087FF0080024C7047004C704700FF00
+      8002FF2BB087FF6BC84AFFACE1A8FF2CB06EFF29B3254C7047004C704700FF00
+      FF01FF31A287FF6DBA46FFAFD4C3FF72BA4AFF31A287FF008002FF008002FF31
+      A287FF6DBA46FFAFD4C3FF72BA4AFF31A287FF00FF014C7047004C7047004C70
+      4700FF008002FF399387FF71AF46FFB2C8C3FF75AC4AFF399387FF399387FF71
+      AF46FFB2C8C3FF75AC4AFF399387FF0080024C7047004C7047004C7047004C70
+      47004C704700FF008002FF3E8687FF78A046FFB4BCC3FF79A24AFF78A046FFB4
+      BCC3FF79A24AFF3E8687FF0080024C7047004C7047004C7047004C7047004C70
+      47004C7047004C704700FF000001FF457882FF7A924BFFB9B0C7FFB9B0C7FF80
+      9546FF437985FF8080024C7047004C7047004C7047004C7047004C7047004C70
+      47004C7047004C704700FF000001FF496B81FF7E854BFFBAA3C7FFBAA3C7FF83
+      8A46FF4B6985FF8080024C7047004C7047004C7047004C7047004C7047004C70
+      47004C704700FF808002FF515D87FF837846FFBE96C3FF86794AFF837846FFBE
+      96C3FF86794AFF515D87FF8080024C7047004C7047004C7047004C7047004C70
+      4700FF808002FF574D87FF876646FFC08BC3FF8A6B4AFF574D87FF574D87FF87
+      6646FFC08BC3FF8A6B4AFF574D87FF8080024C7047004C7047004C704700FF00
+      0001FF5D4087FF8A5F46FFC37FC3FF915D4AFF5D4087FF808002FF808002FF5D
+      4087FF8A5F46FFC37FC3FF915D4AFF5D4087FF0000014C7047004C704700FF65
+      2F26FF64336EFFC573A8FF94534AFF623187FF8000024C7047004C704700FF80
+      0002FF623187FF94534AFFC573A8FF64336EFF6030254C7047004C7047004C70
+      4700FF692575FF6A256FFF6A2487FF8000024C7047004C7047004C7047004C70
+      4700FF800002FF6A2487FF6A256FFF6925754C7047004C7047004C7047004C70
+      47004C704700FF6B1B26FF0000014C7047004C7047004C7047004C7047004C70
+      47004C704700FF000001FF6B1B264C7047004C7047004C7047004C7047004C70
+      47004C7047004C7047004C7047004C7047004C7047004C7047004C7047004C70
+      47004C7047004C7047004C7047004C7047004C7047004C704700
+    }
+    OnClick = Bt_ProfileRemoveClick
+  end
+  object Lb_Lines: TLabel
+    Left = 648
+    Height = 15
+    Top = 112
+    Width = 48
+    Caption = '0 linha(s)'
+    ParentColor = False
+  end
+  object GroupBox1: TGroupBox
+    Left = 832
+    Height = 81
+    Top = 8
+    Width = 256
+    Anchors = [akTop, akRight]
+    Caption = 'Calcular Netmap:'
+    ClientHeight = 61
+    ClientWidth = 252
+    TabOrder = 11
+    object Label6: TLabel
+      Left = 8
+      Height = 15
+      Top = 8
+      Width = 43
+      Caption = 'Privado:'
+      ParentColor = False
+    end
+    object Ed_SearchPrivate: TEdit
+      Left = 56
+      Height = 23
+      Top = 4
+      Width = 96
+      OnKeyDown = Ed_SearchPrivateKeyDown
+      TabOrder = 0
+    end
+    object Bt_SearchPrivateCalc: TButton
+      Left = 152
+      Height = 25
+      Top = 3
+      Width = 40
+      Caption = 'Calc'
+      OnClick = Bt_SearchPrivateCalcClick
+      TabOrder = 1
+    end
+    object Label7: TLabel
+      Left = 8
+      Height = 15
+      Top = 36
+      Width = 43
+      Caption = 'Público:'
+      ParentColor = False
+    end
+    object Ed_SearchPublic: TEdit
+      Left = 56
+      Height = 23
+      Top = 32
+      Width = 96
+      OnKeyDown = Ed_SearchPublicKeyDown
+      TabOrder = 2
+    end
+    object Bt_SearchPublicCalc: TButton
+      Left = 208
+      Height = 25
+      Top = 31
+      Width = 40
+      Caption = 'Calc'
+      OnClick = Bt_SearchPublicCalcClick
+      TabOrder = 4
+    end
+    object Ed_SearchPublicPort: TEdit
+      Left = 152
+      Height = 23
+      Top = 32
+      Width = 56
+      NumbersOnly = True
+      OnKeyDown = Ed_SearchPublicKeyDown
+      TabOrder = 3
+      Text = '0'
+    end
+  end
+  object Bt_Summary: TButton
+    Left = 744
+    Height = 25
+    Top = 128
+    Width = 59
+    Caption = 'Resumo'
+    OnClick = Bt_SummaryClick
+    TabOrder = 12
+  end
+  object Ed_SummaryTo: TEdit
+    Left = 712
+    Height = 23
+    Top = 128
+    Width = 32
+    NumbersOnly = True
+    TabOrder = 13
+    Text = '24'
+  end
+  object Button1: TButton
+    Left = 1016
+    Height = 25
+    Top = 128
+    Width = 72
+    Caption = 'Salvar'
+    OnClick = Button1Click
+    TabOrder = 14
+  end
+  object SaveDialog: TSaveDialog
+    left = 989
+    top = 106
+  end
+end

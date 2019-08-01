@@ -1,0 +1,6 @@
+lib/
+backup/
+/cgnat_netmap.exe
+/cgnat_netmap.dbg
+/netmap.ini
+release/netmap.ini
