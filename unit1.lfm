@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 297
+  Left = 481
   Height = 697
-  Top = 118
+  Top = 100
   Width = 1097
   Caption = 'CGNAT (netmap)'
   ClientHeight = 697
@@ -12,7 +12,7 @@ object frmMain: TfrmMain
   object Label1: TLabel
     Left = 8
     Height = 15
-    Top = 56
+    Top = 48
     Width = 95
     Caption = 'Endereço Privado:'
     ParentColor = False
@@ -20,7 +20,7 @@ object frmMain: TfrmMain
   object Ed_Private: TEdit
     Left = 112
     Height = 23
-    Top = 52
+    Top = 44
     Width = 96
     TabOrder = 1
     Text = '0.0.0.0'
@@ -28,7 +28,7 @@ object frmMain: TfrmMain
   object Label2: TLabel
     Left = 8
     Height = 15
-    Top = 76
+    Top = 72
     Width = 95
     Caption = 'Endereço Público:'
     ParentColor = False
@@ -36,7 +36,7 @@ object frmMain: TfrmMain
   object Label3: TLabel
     Left = 8
     Height = 15
-    Top = 100
+    Top = 96
     Width = 40
     Caption = 'Prefixo:'
     ParentColor = False
@@ -44,7 +44,7 @@ object frmMain: TfrmMain
   object Ed_Prefix: TComboBox
     Left = 112
     Height = 23
-    Top = 100
+    Top = 92
     Width = 48
     ItemHeight = 15
     ItemIndex = 5
@@ -66,7 +66,7 @@ object frmMain: TfrmMain
   object Ed_Division: TComboBox
     Left = 112
     Height = 23
-    Top = 124
+    Top = 116
     Width = 48
     ItemHeight = 15
     ItemIndex = 30
@@ -172,7 +172,6 @@ object frmMain: TfrmMain
       '100'
       '101'
       '102'
-      '102'
       '103'
       '104'
       '105'
@@ -207,14 +206,14 @@ object frmMain: TfrmMain
   object Label4: TLabel
     Left = 8
     Height = 15
-    Top = 124
+    Top = 120
     Width = 41
     Caption = 'Divisão:'
     ParentColor = False
   end
   object Lv_Items: TListView
-    Left = 280
-    Height = 144
+    Left = 296
+    Height = 184
     Top = 8
     Width = 360
     Columns = <    
@@ -246,18 +245,18 @@ object frmMain: TfrmMain
     OnClick = Lv_ItemsClick
   end
   object Bt_Add: TButton
-    Left = 216
+    Left = 232
     Height = 25
-    Top = 64
+    Top = 48
     Width = 60
     Caption = 'Adicionar'
     OnClick = Bt_AddClick
     TabOrder = 5
   end
   object Bt_Change: TButton
-    Left = 216
+    Left = 232
     Height = 25
-    Top = 96
+    Top = 80
     Width = 59
     Caption = 'Alterar'
     Enabled = False
@@ -265,9 +264,9 @@ object frmMain: TfrmMain
     TabOrder = 6
   end
   object Bt_Remove: TButton
-    Left = 216
+    Left = 232
     Height = 25
-    Top = 128
+    Top = 112
     Width = 59
     Caption = 'Remover'
     Enabled = False
@@ -277,13 +276,13 @@ object frmMain: TfrmMain
   object Ed_Public: TEdit
     Left = 112
     Height = 23
-    Top = 76
+    Top = 68
     Width = 96
     TabOrder = 2
     Text = '0.0.0.0'
   end
   object Lb_Private: TLabel
-    Left = 648
+    Left = 664
     Height = 15
     Top = 8
     Width = 43
@@ -291,7 +290,7 @@ object frmMain: TfrmMain
     ParentColor = False
   end
   object Lb_Private2: TLabel
-    Left = 664
+    Left = 680
     Height = 15
     Top = 40
     Width = 33
@@ -299,7 +298,7 @@ object frmMain: TfrmMain
     ParentColor = False
   end
   object Lb_Public: TLabel
-    Left = 648
+    Left = 664
     Height = 15
     Top = 56
     Width = 43
@@ -307,7 +306,7 @@ object frmMain: TfrmMain
     ParentColor = False
   end
   object Lb_Public2: TLabel
-    Left = 664
+    Left = 680
     Height = 15
     Top = 88
     Width = 33
@@ -315,7 +314,7 @@ object frmMain: TfrmMain
     ParentColor = False
   end
   object Lb_Public1: TLabel
-    Left = 664
+    Left = 680
     Height = 15
     Top = 72
     Width = 33
@@ -323,7 +322,7 @@ object frmMain: TfrmMain
     ParentColor = False
   end
   object Lb_Private1: TLabel
-    Left = 664
+    Left = 680
     Height = 15
     Top = 24
     Width = 33
@@ -332,8 +331,8 @@ object frmMain: TfrmMain
   end
   object Ed_Script: TMemo
     Left = 8
-    Height = 528
-    Top = 160
+    Height = 488
+    Top = 200
     Width = 1080
     Anchors = [akTop, akLeft, akRight, akBottom]
     Font.CharSet = ANSI_CHARSET
@@ -346,17 +345,17 @@ object frmMain: TfrmMain
     ParentFont = False
     ReadOnly = True
     ScrollBars = ssAutoBoth
-    TabOrder = 9
+    TabOrder = 11
     WordWrap = False
   end
   object Bt_Generate: TButton
-    Left = 648
+    Left = 664
     Height = 25
-    Top = 128
+    Top = 168
     Width = 59
     Caption = 'Gerar'
     OnClick = Bt_GenerateClick
-    TabOrder = 10
+    TabOrder = 12
   end
   object Ed_Profile: TComboBox
     Left = 56
@@ -462,9 +461,9 @@ object frmMain: TfrmMain
     OnClick = Bt_ProfileRemoveClick
   end
   object Lb_Lines: TLabel
-    Left = 648
+    Left = 664
     Height = 15
-    Top = 112
+    Top = 152
     Width = 48
     Caption = '0 linha(s)'
     ParentColor = False
@@ -478,7 +477,7 @@ object frmMain: TfrmMain
     Caption = 'Calcular Netmap:'
     ClientHeight = 61
     ClientWidth = 252
-    TabOrder = 11
+    TabOrder = 13
     object Label6: TLabel
       Left = 8
       Height = 15
@@ -541,31 +540,78 @@ object frmMain: TfrmMain
     end
   end
   object Bt_Summary: TButton
-    Left = 744
+    Left = 760
     Height = 25
-    Top = 128
+    Top = 168
     Width = 59
     Caption = 'Resumo'
     OnClick = Bt_SummaryClick
-    TabOrder = 12
+    TabOrder = 14
   end
   object Ed_SummaryTo: TEdit
-    Left = 712
+    Left = 728
     Height = 23
-    Top = 128
+    Top = 168
     Width = 32
     NumbersOnly = True
-    TabOrder = 13
+    TabOrder = 15
     Text = '24'
   end
-  object Button1: TButton
+  object Bt_Save: TButton
     Left = 1016
     Height = 25
-    Top = 128
+    Top = 168
     Width = 72
+    Anchors = [akTop, akRight]
     Caption = 'Salvar'
-    OnClick = Button1Click
-    TabOrder = 14
+    OnClick = Bt_SaveClick
+    TabOrder = 16
+  end
+  object Ed_IfaceRule: TComboBox
+    Left = 112
+    Height = 23
+    Top = 148
+    Width = 112
+    ItemHeight = 15
+    ItemIndex = 2
+    Items.Strings = (
+      'Não utilizar'
+      'out-interface'
+      'out-interface-list'
+    )
+    Style = csDropDownList
+    TabOrder = 9
+    Text = 'out-interface-list'
+  end
+  object Label8: TLabel
+    Left = 8
+    Height = 15
+    Top = 152
+    Width = 98
+    Caption = 'Regra de interface:'
+    ParentColor = False
+  end
+  object Label9: TLabel
+    Left = 8
+    Height = 15
+    Top = 176
+    Width = 49
+    Caption = 'Interface:'
+    ParentColor = False
+  end
+  object Ed_IfaceValue: TEdit
+    Left = 112
+    Height = 23
+    Top = 172
+    Width = 112
+    TabOrder = 10
+  end
+  object Bevel1: TBevel
+    Left = 8
+    Height = 9
+    Top = 143
+    Width = 280
+    Shape = bsTopLine
   end
   object SaveDialog: TSaveDialog
     left = 989

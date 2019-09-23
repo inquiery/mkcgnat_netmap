@@ -6,12 +6,13 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ComCtrls,
-  Buttons, netmapclasses, netaddrutils, IniFiles, math, LazUTF8;
+  Buttons, ExtCtrls, netmapclasses, netaddrutils, IniFiles, math, LazUTF8;
 
 type
   { TfrmMain }
 
   TfrmMain = class(TForm)
+    Bevel1: TBevel;
     Bt_Add: TButton;
     Bt_Change: TButton;
     Bt_Summary: TButton;
@@ -19,7 +20,9 @@ type
     Bt_Generate: TButton;
     Bt_SearchPrivateCalc: TButton;
     Bt_SearchPublicCalc: TButton;
-    Button1: TButton;
+    Bt_Save: TButton;
+    Ed_IfaceValue: TEdit;
+    Ed_IfaceRule: TComboBox;
     Ed_SummaryTo: TEdit;
     Ed_SearchPublicPort: TEdit;
     Ed_SearchPrivate: TEdit;
@@ -34,6 +37,8 @@ type
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
     Lb_Lines: TLabel;
     Lb_Private1: TLabel;
     Lb_Public1: TLabel;
@@ -58,7 +63,7 @@ type
     procedure Bt_SearchPrivateCalcClick(Sender: TObject);
     procedure Bt_SearchPublicCalcClick(Sender: TObject);
     procedure Bt_SummaryClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure Bt_SaveClick(Sender: TObject);
     procedure Ed_ProfileChange(Sender: TObject);
     procedure Ed_SearchPrivateKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -138,11 +143,22 @@ var
   ValueExists: Boolean;
   Netmap: TCgnatNetmap;
   Item: TListItem;
+  IfaceRule, IfaceValue: String;
 begin
   if Profile = '' then
     Profile := 'Netmaps'
   else
     Profile := 'profile-' {%H-}+ Profile;
+
+  IfaceRule := Ini.ReadString(Profile, 'IfaceRule', '');
+  IfaceValue := Ini.ReadString(Profile, 'IfaceValue', '');
+
+  I := Ed_IfaceRule.Items.IndexOf(IfaceRule);
+  if I >= 0 then
+    Ed_IfaceRule.ItemIndex := I
+  else
+    Ed_IfaceRule.ItemIndex := 0;
+  Ed_IfaceValue.Text := IfaceValue;
 
   Lv_Items.Items.Clear;
   Netmaps.Clear;
@@ -177,6 +193,7 @@ procedure TfrmMain.WriteIniProfile(Profile: String);
 var
   I: Integer;
   Netmap: TCgnatNetmap;
+  IfaceRule: String;
 begin
   if Profile = '' then
     Profile := 'Netmaps'
@@ -184,6 +201,14 @@ begin
     Profile := 'profile-' {%H-}+ Profile;
 
   Ini.EraseSection(Profile);
+
+  if Ed_IfaceRule.ItemIndex = 0 then
+    IfaceRule := ''
+  else
+    IfaceRule := Ed_IfaceRule.Text;
+  Ini.WriteString(Profile, 'IfaceRule', IfaceRule);
+  Ini.WriteString(Profile, 'IfaceValue', Ed_IfaceValue.Text);
+
   for I := 0 to Netmaps.Count - 1 do begin
     Netmap := Netmaps[I];
     Ini.WriteInteger(Profile, 'Prefix' + IntToStr(I), Netmap.Prefix);
@@ -277,6 +302,7 @@ var
   nI, dI, Nws, Addrs, PortsPerIP, RulePort: Integer;
   Netmap: TCgnatNetmap;
   PrivAddr: UInt32;
+  Cmd: String;
 begin
   Ed_Script.Lines.BeginUpdate;
   try
@@ -285,7 +311,17 @@ begin
     for nI := 0 to Netmaps.Count - 1 do begin
       Netmap := Netmaps[nI];
       Nws := Trunc(intpower(2, 32 - Netmap.Prefix) * Netmap.Division);
-      Ed_Script.Lines.Add(Format('/ip firewall nat add chain=srcnat src-address=%s-%s action=jump jump-target=cgnat%d comment=cgnat', [Netmap.PrivateNw, IntToAddress(Netmap.IntPrivateNw + Nws - 1), nI + 1]));
+
+      case Ed_IfaceRule.ItemIndex of
+        1:
+          Cmd := Format('/ip firewall nat add chain=srcnat src-address=%s-%s out-interface=%s action=jump jump-target=cgnat%d comment=cgnat', [Netmap.PrivateNw, IntToAddress(Netmap.IntPrivateNw + Nws - 1), Ed_IfaceValue.Text, nI + 1]);
+        2:
+          Cmd := Format('/ip firewall nat add chain=srcnat src-address=%s-%s out-interface-list=%s action=jump jump-target=cgnat%d comment=cgnat', [Netmap.PrivateNw, IntToAddress(Netmap.IntPrivateNw + Nws - 1), Ed_IfaceValue.Text, nI + 1]);
+        else
+          Cmd := Format('/ip firewall nat add chain=srcnat src-address=%s-%s action=jump jump-target=cgnat%d comment=cgnat', [Netmap.PrivateNw, IntToAddress(Netmap.IntPrivateNw + Nws - 1), nI + 1]);
+      end;
+
+      Ed_Script.Lines.Add(Cmd);
     end;
 
     for nI := 0 to Netmaps.Count - 1 do begin
@@ -329,17 +365,21 @@ end;
 procedure TfrmMain.Bt_ProfileSaveClick(Sender: TObject);
 var
   IO: Integer;
+  Profile: String;
 begin
-  if Ed_Profile.Text <> '' then
-    if Pos(',', Ed_Profile.Text) > 0 then
-      MessageDlg('', 'Não é permitido utilizar vírgulas (",") no nome do perfil.', mtWarning, [mbOk], 0)
-    else begin
-      WriteIniProfile(Ed_Profile.Text);
+  Profile := Ed_Profile.Text;
 
-      IO := IndexOfProfile(Ed_Profile.Text);
+  if Pos(',', Profile) > 0 then
+    MessageDlg('', 'Não é permitido utilizar vírgulas (",") no nome do perfil.', mtWarning, [mbOk], 0)
+  else begin
+    WriteIniProfile(Profile);
+
+    if Profile <> '' then begin
+      IO := IndexOfProfile(Profile);
       if IO < 0 then
-        Ed_Profile.Items.Add(Ed_Profile.Text);
+        Ed_Profile.Items.Add(Profile);
     end;
+  end;
 end;
 
 procedure TfrmMain.Bt_RemoveClick(Sender: TObject);
@@ -459,7 +499,7 @@ end;
 
 procedure TfrmMain.Bt_SummaryClick(Sender: TObject);
 var
-  nI, dI, sI, Addrs, SummTo, Rest, LenS: Integer;
+  nI, dI, sI, Addrs, SummTo, Rest, LenS, PortsPerIP, RulePort: Integer;
   Netmap: TCgnatNetmap;
   PrivAddr: UInt32;
   S: String;
@@ -498,6 +538,20 @@ begin
         PrivAddr := PrivAddr + Addrs;
       end;
 
+      // *** Resumo das portas
+      Ed_Script.Lines.Add('');
+      Ed_Script.Lines.Add('*** Tabela das portas utilizadas no NAT ***');
+      PortsPerIP := (65536-1025) div Netmap.Division;
+      RulePort := 65536 - (PortsPerIP * Netmap.Division);
+
+      for dI := 1 to Netmap.Division do begin
+        Ed_Script.Lines.Add(Format('Regra %d : %d -> %d', [dI, RulePort, RulePort + PortsPerIP]));
+
+        PrivAddr := PrivAddr + Addrs;
+        RulePort := RulePort + PortsPerIP;
+      end;
+      // ***
+
       if nI < Netmaps.Count - 1 then
         Ed_Script.Lines.Add('');
     end;
@@ -506,7 +560,7 @@ begin
   end;
 end;
 
-procedure TfrmMain.Button1Click(Sender: TObject);
+procedure TfrmMain.Bt_SaveClick(Sender: TObject);
 var
   FileName: String;
 begin
